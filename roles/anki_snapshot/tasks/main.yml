@@ -1,4 +1,20 @@
 ---
+- name: Ensure ~/.local/bin exists
+  ansible.builtin.file:
+    path: "{{ server_user_home }}/.local/bin"
+    state: directory
+    owner: "{{ server_user }}"
+    group: "{{ server_user }}"
+    mode: "0755"
+
+- name: Install anki-ai binary
+  ansible.builtin.get_url:
+    url: https://github.com/teichholz/anki-ai/releases/download/v1.0.0/anki-ai
+    dest: "{{ anki_bin }}"
+    owner: "{{ server_user }}"
+    group: "{{ server_user }}"
+    mode: "0755"
+
 - name: Deploy anki-prune.sh
   ansible.builtin.template:
     src: anki-prune.sh.j2
