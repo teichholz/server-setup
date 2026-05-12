@@ -1,0 +1,24 @@
+---
+# 1Password vault to read from
+op_vault: "Private"
+
+# List of 1Password item names whose fields will be written as env vars.
+# Add one entry per service. The item's field labels become the env var keys.
+#
+# Example:
+#   op_service_items:
+#     - "teichserver postgres"
+#     - "teichserver redis"
+#     - "teichserver app secrets"
+op_service_items: []
+
+# Path on the remote host where env vars are written
+op_env_file: /etc/environment
+
+# Field labels to always skip (standard 1Password meta-fields)
+op_skip_labels:
+  - notesPlain
+  - password
+  - username
+  - website
+  - TOTP

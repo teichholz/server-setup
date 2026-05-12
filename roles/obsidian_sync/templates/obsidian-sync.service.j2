@@ -1,0 +1,13 @@
+[Unit]
+Description=Obsidian Headless Sync
+After=network.target
+
+[Service]
+User={{ server_user }}
+Environment=PATH={{ server_user_home }}/.nvm/versions/node/{{ _node_version }}/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart={{ server_user_home }}/.nvm/versions/node/{{ _node_version }}/bin/ob sync --continuous
+WorkingDirectory={{ obsidian_vault_path }}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

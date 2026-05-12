@@ -1,0 +1,6 @@
+---
+- name: Restart anki-snapshot timer
+  ansible.builtin.systemd:
+    name: anki-snapshot.timer
+    daemon_reload: true
+    state: restarted

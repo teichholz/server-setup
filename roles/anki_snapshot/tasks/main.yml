@@ -1,0 +1,33 @@
+---
+- name: Deploy anki-prune.sh
+  ansible.builtin.template:
+    src: anki-prune.sh.j2
+    dest: /usr/local/bin/anki-prune.sh
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Deploy anki-snapshot.service
+  ansible.builtin.template:
+    src: anki-snapshot.service.j2
+    dest: /etc/systemd/system/anki-snapshot.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart anki-snapshot timer
+
+- name: Deploy anki-snapshot.timer
+  ansible.builtin.copy:
+    src: anki-snapshot.timer
+    dest: /etc/systemd/system/anki-snapshot.timer
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart anki-snapshot timer
+
+- name: Enable and start anki-snapshot.timer
+  ansible.builtin.systemd:
+    name: anki-snapshot.timer
+    enabled: true
+    state: started
+    daemon_reload: true

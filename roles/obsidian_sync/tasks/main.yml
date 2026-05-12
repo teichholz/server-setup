@@ -1,0 +1,34 @@
+---
+- name: Resolve active Node.js version from nvm
+  ansible.builtin.shell:
+    cmd: |
+      export NVM_DIR="{{ obsidian_nvm_dir }}"
+      . "$NVM_DIR/nvm.sh"
+      nvm version default
+    executable: /bin/bash
+  become: true
+  become_user: "{{ server_user }}"
+  environment:
+    HOME: "{{ server_user_home }}"
+  register: _nvm_version_out
+  changed_when: false
+
+- name: Set node version fact
+  ansible.builtin.set_fact:
+    _node_version: "{{ _nvm_version_out.stdout | trim }}"
+
+- name: Deploy obsidian-sync.service
+  ansible.builtin.template:
+    src: obsidian-sync.service.j2
+    dest: /etc/systemd/system/obsidian-sync.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart obsidian-sync
+
+- name: Enable and start obsidian-sync.service
+  ansible.builtin.systemd:
+    name: obsidian-sync.service
+    enabled: true
+    state: started
+    daemon_reload: true

@@ -1,0 +1,11 @@
+---
+nvm_version: "v0.40.3"
+nvm_node_version: "lts/*"
+
+# User nvm is installed for. Home dir is derived automatically.
+nvm_user: "{{ ansible_user | default('root') }}"
+nvm_home: "{{ '/root' if nvm_user == 'root' else '/home/' + nvm_user }}"
+nvm_dir: "{{ nvm_home }}/.nvm"
+
+# Global npm packages to install after Node is ready
+nvm_npm_global_packages: []

@@ -1,0 +1,17 @@
+---
+# One-time play for a fresh machine.
+# Creates server_user and ensures sudo access before the main site.yml runs.
+- name: Bootstrap server user
+  hosts: teichserver
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Ensure server_user exists
+      ansible.builtin.user:
+        name: "{{ server_user }}"
+        shell: /bin/bash
+        create_home: true
+        groups: sudo
+        append: true
+        state: present

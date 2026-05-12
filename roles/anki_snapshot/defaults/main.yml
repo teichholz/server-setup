@@ -1,0 +1,3 @@
+---
+anki_max_snapshots: 10
+anki_bin: "{{ server_user_home }}/.local/bin/anki-ai"

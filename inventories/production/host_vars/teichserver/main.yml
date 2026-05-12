@@ -1,0 +1,4 @@
+---
+nvm_user: "{{ server_user }}"       # install nvm for tim, not root
+nvm_npm_global_packages:
+  - obsidian-headless

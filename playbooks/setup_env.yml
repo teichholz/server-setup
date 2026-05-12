@@ -1,0 +1,77 @@
+---
+# Reads env vars from 1Password (once, locally) and writes them to the server.
+#
+# Prerequisites:
+#   - op CLI installed and signed in  (op signin)
+#   - op_service_items list populated in group_vars/all/op_env_vars.yml
+#
+# Usage:
+#   op run -- ansible-playbook playbooks/setup_env.yml
+#
+# Dry-run (show what would be written without touching the server):
+#   op run -- ansible-playbook playbooks/setup_env.yml --check --diff
+
+- name: Push env vars from 1Password to server
+  hosts: teichserver
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Verify op is available locally
+      delegate_to: localhost
+      become: false
+      ansible.builtin.command: op --version
+      changed_when: false
+      run_once: true
+
+    - name: Fetch each 1Password item
+      delegate_to: localhost
+      become: false
+      ansible.builtin.command: >
+        op item get "{{ item }}" --vault "{{ op_vault }}" --format json
+      register: _op_results
+      loop: "{{ op_service_items }}"
+      no_log: true
+      changed_when: false
+
+    - name: Build env var dict from all items
+      ansible.builtin.set_fact:
+        _env_vars: >-
+          {{
+            _env_vars | default({}) | combine(
+              (item.stdout | from_json).fields
+              | selectattr('value', 'defined')
+              | selectattr('value', '!=', None)
+              | rejectattr('label', 'in', op_skip_labels)
+              | items2dict(key_name='label', value_name='value')
+            )
+          }}
+      loop: "{{ _op_results.results }}"
+      no_log: true
+
+    - name: Ensure env file exists
+      ansible.builtin.file:
+        path: "{{ op_env_file }}"
+        state: touch
+        mode: "0640"
+        owner: root
+        group: root
+        modification_time: preserve
+        access_time: preserve
+
+    - name: Write env vars to {{ op_env_file }}
+      ansible.builtin.lineinfile:
+        path: "{{ op_env_file }}"
+        regexp: "^{{ item.key }}="
+        line: "{{ item.key }}={{ item.value }}"
+        owner: root
+        group: root
+        mode: "0640"
+      loop: "{{ _env_vars | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
+      no_log: true
+
+    - name: Report summary
+      ansible.builtin.debug:
+        msg: "Wrote {{ _env_vars | length }} env var(s) to {{ op_env_file }} on {{ inventory_hostname }}"

@@ -1,0 +1,6 @@
+---
+- name: Restart obsidian-sync
+  ansible.builtin.systemd:
+    name: obsidian-sync.service
+    daemon_reload: true
+    state: restarted

@@ -1,0 +1,9 @@
+---
+- name: Configure teichserver
+  hosts: teichserver
+  become: true
+
+  roles:
+    - nvm
+    - anki_snapshot
+    - obsidian_sync

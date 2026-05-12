@@ -1,0 +1,6 @@
+/etc/systemd/system/anki-snapshot.service
+/etc/systemd/system/anki-snapshot.timer
+/etc/systemd/system/obsidian-sync.service
+/usr/local/bin/anki-prune.sh
+node via nvm
+npm install -g obsidian-headless

@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Anki AI snapshot nightly
+Requires=anki-snapshot.service
+
+[Timer]
+OnCalendar=*-*-* 02:00:00
+RandomizedDelaySec=5min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

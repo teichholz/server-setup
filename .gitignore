@@ -1,0 +1,10 @@
+*.retry
+*.log
+.env
+.vault_pass
+*.secret
+**/secrets.yml
+**/.secrets/
+__pycache__/
+.pytest_cache/
+.molecule/

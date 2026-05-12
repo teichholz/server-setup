@@ -1,0 +1,10 @@
+[Unit]
+Description=Anki AI daily snapshot with pruning
+After=network.target
+
+[Service]
+Type=oneshot
+User=tim
+ExecStart=/usr/local/bin/anki-prune.sh
+StandardOutput=journal
+StandardError=journal
