@@ -1,0 +1,18 @@
+## Tools
+
+- **anki-ai**: headless Anki CLI at `~/.local/bin/anki-ai`.
+  Run `anki-ai skill` to load full usage docs once before any Anki operation.
+  Auth stored at `~/.config/anki-ai/auth.json` (already configured).
+  Collection auto-detected from `~/.local/share/Anki2/`.
+
+- **Obsidian vault**: `{{ obsidian_vault }}`
+  Write notes as `.md` files directly into this directory tree.
+  Vault contains AGENTS.md with more information.
+
+## Anki Workflow Rules
+
+- Sync before reading if freshness matters; sync after every write session.
+- Snapshot (`anki-ai snapshot`) before any bulk add/update/delete session.
+- Use `--yes` on all destructive commands (delete, restore).
+- Never run interactive commands — use `--email`/`--password` flags or env vars
+  for auth.

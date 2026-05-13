@@ -1,0 +1,3 @@
+---
+hermes_home: "{{ server_user_home }}/.hermes"
+obsidian_vault: "{{ server_user_home }}/vaults/brain"

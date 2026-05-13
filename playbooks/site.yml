@@ -3,7 +3,17 @@
   hosts: teichserver
   become: true
 
+  pre_tasks:
+    - name: Install common CLI tools
+      ansible.builtin.apt:
+        name:
+          - fd-find
+          - ripgrep
+        state: present
+        update_cache: true
+
   roles:
     - nvm
     - anki_snapshot
     - obsidian_sync
+    - hermes_config
