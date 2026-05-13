@@ -1,24 +1,11 @@
 ---
-# 1Password vault to read from
-op_vault: "Private"
-
-# List of 1Password item names whose fields will be written as env vars.
-# Add one entry per service. The item's field labels become the env var keys.
-#
-# Example:
-#   op_service_items:
-#     - "teichserver postgres"
-#     - "teichserver redis"
-#     - "teichserver app secrets"
-op_service_items: []
+# Map of env var name → 1Password secret reference (op://)
+# Add entries here; run `just env-vars` to push them to the server.
+op_env_map:
+  ANKI_EMAIL: "op://Personal/ankiweb.net/username"
+  ANKI_PASSWORD: "op://Personal/ankiweb.net/password"
+  OBSIDIAN_EMAIL: "op://Personal/obsidian.md/username"
+  OBSIDIAN_PASSWORD: "op://Personal/obsidian.md/password"
 
 # Path on the remote host where env vars are written
 op_env_file: /etc/environment
-
-# Field labels to always skip (standard 1Password meta-fields)
-op_skip_labels:
-  - notesPlain
-  - password
-  - username
-  - website
-  - TOTP

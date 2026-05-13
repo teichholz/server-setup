@@ -7,10 +7,18 @@
     group: "{{ server_user }}"
     mode: "0755"
 
-- name: Remove previous anki-ai binary
-  ansible.builtin.file:
-    path: "{{ anki_bin }}"
-    state: absent
+- name: Get latest anki-ai release info
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/teichholz/anki-ai/releases/latest
+    return_content: true
+  register: anki_release_info
+
+- name: Get current anki-ai version
+  ansible.builtin.command:
+    cmd: "{{ anki_bin }} --version"
+  register: anki_current_version
+  failed_when: false
+  changed_when: false
 
 - name: Install anki-ai binary
   ansible.builtin.get_url:
@@ -19,6 +27,10 @@
     owner: "{{ server_user }}"
     group: "{{ server_user }}"
     mode: "0755"
+    force: true
+  when: >
+    anki_current_version.rc != 0 or
+    anki_release_info.json.tag_name | regex_replace('^v', '') not in anki_current_version.stdout
 
 - name: Deploy anki-prune.sh
   ansible.builtin.template:

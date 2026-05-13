@@ -1,15 +1,14 @@
 ---
-# Reads env vars from 1Password (once, locally) and writes them to the server.
+# Reads secret refs from op_env_map (group_vars) and writes them to the server.
 #
 # Prerequisites:
-#   - op CLI installed and signed in  (op signin)
-#   - op_service_items list populated in group_vars/all/op_env_vars.yml
+#   - op CLI installed and signed in
 #
 # Usage:
-#   op run -- ansible-playbook playbooks/setup_env.yml
+#   just env-vars
 #
 # Dry-run (show what would be written without touching the server):
-#   op run -- ansible-playbook playbooks/setup_env.yml --check --diff
+#   just env-vars-check
 
 - name: Push env vars from 1Password to server
   hosts: teichserver
@@ -17,36 +16,23 @@
   gather_facts: false
 
   tasks:
-    - name: Verify op is available locally
+    - name: Resolve each secret reference
       delegate_to: localhost
       become: false
-      ansible.builtin.command: op --version
-      changed_when: false
-      run_once: true
-
-    - name: Fetch each 1Password item
-      delegate_to: localhost
-      become: false
-      ansible.builtin.command: >
-        op item get "{{ item }}" --vault "{{ op_vault }}" --format json
+      ansible.builtin.command: op read "{{ item.value }}"
       register: _op_results
-      loop: "{{ op_service_items }}"
+      loop: "{{ op_env_map | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
       no_log: true
       changed_when: false
 
-    - name: Build env var dict from all items
+    - name: Build env var dict
       ansible.builtin.set_fact:
-        _env_vars: >-
-          {{
-            _env_vars | default({}) | combine(
-              (item.stdout | from_json).fields
-              | selectattr('value', 'defined')
-              | selectattr('value', '!=', None)
-              | rejectattr('label', 'in', op_skip_labels)
-              | items2dict(key_name='label', value_name='value')
-            )
-          }}
+        _env_vars: "{{ _env_vars | default({}) | combine({item.item.key: item.stdout}) }}"
       loop: "{{ _op_results.results }}"
+      loop_control:
+        label: "{{ item.item.key }}"
       no_log: true
 
     - name: Ensure env file exists
