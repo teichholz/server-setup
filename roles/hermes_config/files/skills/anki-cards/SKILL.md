@@ -28,12 +28,16 @@ After researching a topic or capturing a note, distill key facts into Anki flash
    - Tag each card with topic and source type (e.g. `research`, `book`, `video`)
 5. Sync after every write session: `anki-ai sync`
 
+## Deck
+
+Create a deck that reflects the topic being studied, but it must be nested under **Brain** (e.g. `Brain::History::Roman Empire`). Never place cards at the top level or outside the Brain hierarchy.
+
 ## Pitfalls
 
 - Never run interactive commands — use env vars `ANKI_EMAIL`/`ANKI_PASSWORD` or the pre-configured auth at `~/.config/anki-ai/auth.json`
 - Use `--yes` on all destructive commands (delete, restore)
 - Don't create cards for trivia or things the user clearly already knows
-- If the right deck is unclear, ask before creating cards
+- If the right deck is unclear, default to **Brain** rather than asking
 
 ## Verification
 
