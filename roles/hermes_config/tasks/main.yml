@@ -15,6 +15,14 @@
     group: "{{ server_user }}"
     mode: "0755"
 
+- name: Ensure ~/.hermes/skills exists
+  ansible.builtin.file:
+    path: "{{ hermes_home }}/skills"
+    state: directory
+    owner: "{{ server_user }}"
+    group: "{{ server_user }}"
+    mode: "0755"
+
 - name: Deploy SOUL.md
   ansible.builtin.copy:
     src: SOUL.md
@@ -27,6 +35,14 @@
   ansible.builtin.template:
     src: MEMORY.md.j2
     dest: "{{ hermes_home }}/memories/MEMORY.md"
+    owner: "{{ server_user }}"
+    group: "{{ server_user }}"
+    mode: "0644"
+
+- name: Deploy skills
+  ansible.builtin.copy:
+    src: skills/
+    dest: "{{ hermes_home }}/skills/"
     owner: "{{ server_user }}"
     group: "{{ server_user }}"
     mode: "0644"
