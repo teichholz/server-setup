@@ -5,6 +5,7 @@
 *.secret
 **/secrets.yml
 **/.secrets/
+.venv/
 __pycache__/
 .pytest_cache/
 .molecule/
