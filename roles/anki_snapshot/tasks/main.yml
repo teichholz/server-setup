@@ -27,7 +27,6 @@
     owner: "{{ server_user }}"
     group: "{{ server_user }}"
     mode: "0755"
-    force: true
   when: >
     anki_current_version.rc != 0 or
     anki_release_info.json.tag_name | regex_replace('^v', '') not in anki_current_version.stdout

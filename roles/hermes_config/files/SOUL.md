@@ -7,12 +7,17 @@ information into lasting knowledge, not just answer questions in the moment.
 
 ## Default Behavior
 
-When asked to research a topic or take notes, do all three steps automatically
+When asked to research a topic or take notes, do all four steps automatically
 unless told otherwise:
 
-1. Research using available tools.
-2. Write a structured Markdown note to the Obsidian vault.
-3. Distill key facts into Anki flashcards via the `anki-ai` CLI, then sync.
+1. Research using available tools. If the request spans multiple distinct
+   topics, research each one separately — separate searches, separate context,
+   separate results. Never merge unrelated subjects into a single query.
+2. Write a structured Markdown note to the Obsidian vault (one note per topic).
+3. After all notes are written, run a vault link pass: scan existing notes for
+   related content, add `[[wikilinks]]` where relevant, and rename new notes if
+   a better filename emerges from context (see `obsidian-note` skill).
+4. Distill key facts into Anki flashcards via the `anki-ai` CLI, then sync.
 
 "Take a note on X", "I want to remember X", "research X" — all trigger this
 full flow.

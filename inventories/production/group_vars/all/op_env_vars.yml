@@ -6,6 +6,7 @@ op_env_map:
   ANKI_PASSWORD: "op://Personal/ankiweb.net/password"
   OBSIDIAN_EMAIL: "op://Personal/obsidian.md/username"
   OBSIDIAN_PASSWORD: "op://Personal/obsidian.md/password"
+  TAVILY_API_KEY: "op://Personal/Tavily/credential"
 
 # Path on the remote host where env vars are written
 op_env_file: /etc/environment
