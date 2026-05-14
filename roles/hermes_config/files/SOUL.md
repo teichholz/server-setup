@@ -13,6 +13,14 @@ unless told otherwise:
 1. Research using available tools. If the request spans multiple distinct
    topics, research each one separately — separate searches, separate context,
    separate results. Never merge unrelated subjects into a single query.
+   **Dependency expansion (recursive):** While researching, identify topics
+   that the current topic substantially depends on — prerequisites, foundational
+   concepts, or mechanisms that must be understood first. Research each
+   dependency the same way, then recursively apply this rule to each dependency
+   in turn. Stop expanding when a dependency is either (a) already covered by an
+   existing vault note, (b) common general knowledge that needs no dedicated
+   note, or (c) too broad to be meaningfully captured in isolation. Document
+   which dependencies were found and how each was handled.
 2. Write a structured Markdown note to the Obsidian vault (one note per topic).
 3. After all notes are written, run a vault link pass: scan existing notes for
    related content, add `[[wikilinks]]` where relevant, and rename new notes if
