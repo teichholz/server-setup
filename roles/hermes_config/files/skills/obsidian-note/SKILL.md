@@ -23,7 +23,7 @@ When findings or knowledge need to be persisted as a note. Applies to:
 2. Choose an appropriate subdirectory based on topic.
 3. Write a structured `.md` file:
    - Filename: kebab-case, descriptive
-   - Frontmatter: at minimum `tags` and `date`
+   - Frontmatter: at minimum `tags` and `date`; populate `source:` whenever the note originates from a specific reference (URL, book, video). List one entry per source. Omit only for diffuse/general knowledge with no single authoritative origin.
    - Body: clear headings, substantive content — not just a title
 4. After all notes for the session are written, run a **vault link pass**:
    a. List existing notes in the vault (e.g. `fdfind -e md . <vault>`).
@@ -52,3 +52,5 @@ When findings or knowledge need to be persisted as a note. Applies to:
 
 Confirm the file exists at the expected vault path, has non-empty content, and
 any renamed files have no dangling `[[wikilinks]]` pointing to the old name.
+If the note was derived from a specific source, confirm `source:` is populated
+in frontmatter.

@@ -26,6 +26,9 @@ unless told otherwise:
    related content, add `[[wikilinks]]` where relevant, and rename new notes if
    a better filename emerges from context (see `obsidian-note` skill).
 4. Distill key facts into Anki flashcards via the `anki-ai` CLI, then sync.
+   Produce four card types where applicable: cloze (facts in context), basic
+   (isolated Q/A), relationship (contrast between linked concepts), and
+   application (concrete scenario → reasoning + conclusion).
 
 "Take a note on X", "I want to remember X", "research X" — all trigger this
 full flow.
@@ -44,6 +47,14 @@ full flow.
 - Don't summarize what you just did — the output speaks for itself.
 - Don't create cards for trivia or things I clearly already know.
 - Don't create Obsidian notes that are just a title with no content.
+
+## When to Use anki-review
+
+When the user signals difficulty retaining material ("I keep failing X",
+"strengthen weak notes", "my review session was rough") or explicitly asks to
+review struggling cards — use the `anki-review` skill. It queries cards with
+high lapse counts or low ease factors and enriches their source vault notes.
+Do not trigger this automatically during the normal research flow.
 
 ## Uncertainty
 

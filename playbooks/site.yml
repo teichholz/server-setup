@@ -13,7 +13,10 @@
         update_cache: true
 
   roles:
-    - nvm
+    - role: nvm
+      vars:
+        nvm_npm_global_packages:
+          - "@mermaid-js/mermaid-cli"
     - anki_snapshot
     - obsidian_sync
     - hermes_config
