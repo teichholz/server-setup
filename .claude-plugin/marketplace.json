@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "hermes-skills",
+  "description": "Knowledge management and productivity skills for the Hermes AI agent",
+  "owner": {
+    "name": "Tim Eichholz",
+    "email": "tim.eichholz98@web.de"
+  },
+  "plugins": [
+    {
+      "name": "hermes",
+      "description": "Knowledge management skills: Obsidian notes, Anki flashcards, card review, and Mermaid diagrams",
+      "version": "1.0.0",
+      "author": {
+        "name": "Tim Eichholz"
+      },
+      "source": "./skills",
+      "category": "knowledge",
+      "tags": ["obsidian", "anki", "mermaid", "flashcards", "notes", "knowledge-management", "spaced-repetition"]
+    }
+  ]
+}

@@ -41,7 +41,7 @@
 
 - name: Deploy skills
   ansible.builtin.copy:
-    src: skills/
+    src: "{{ playbook_dir }}/../skills/"
     dest: "{{ hermes_home }}/skills/"
     owner: "{{ server_user }}"
     group: "{{ server_user }}"
