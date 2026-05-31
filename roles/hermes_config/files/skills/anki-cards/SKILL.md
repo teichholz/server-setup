@@ -39,6 +39,10 @@ After researching a topic or capturing a note, distill key facts into Anki flash
    - Generate ≥1 per note for applicable topics; skip for pure factual content (definitions, dates, names, vocabulary)
 7. Sync after every write session: `anki-ai sync`
 
+## Diagrams
+
+If the topic has meaningful structure (hierarchies, flows, relationships, timelines), use the `mermaid-diagram` skill to embed a diagram in the note before creating cards. Reference it from the card's Extra field where relevant.
+
 ## Deck
 
 Create a deck that reflects the topic being studied, but it must be nested under **Brain** (e.g. `Brain::History::Roman Empire`). Never place cards at the top level or outside the Brain hierarchy.

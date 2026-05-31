@@ -25,7 +25,8 @@ When findings or knowledge need to be persisted as a note. Applies to:
    - Filename: kebab-case, descriptive
    - Frontmatter: at minimum `tags` and `date`; populate `source:` whenever the note originates from a specific reference (URL, book, video). List one entry per source. Omit only for diffuse/general knowledge with no single authoritative origin.
    - Body: clear headings, substantive content — not just a title
-4. After all notes for the session are written, run a **vault link pass**:
+4. If the topic has meaningful structure (hierarchies, flows, relationships, processes), use the `mermaid-diagram` skill to generate a diagram and embed it in the note body.
+5. After all notes for the session are written, run a **vault link pass**:
    a. List existing notes in the vault (e.g. `fdfind -e md . <vault>`).
    b. For each newly written note, identify related existing notes by topic
       overlap and add `[[wikilinks]]` in both directions.
