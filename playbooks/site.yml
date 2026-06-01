@@ -17,6 +17,7 @@
       vars:
         nvm_npm_global_packages:
           - "@mermaid-js/mermaid-cli"
+          - obsidian-headless
     - anki_snapshot
     - obsidian_sync
     - hermes_config
